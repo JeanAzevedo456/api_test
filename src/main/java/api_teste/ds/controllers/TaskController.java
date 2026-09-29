@@ -40,14 +40,14 @@ public class TaskController { //Declaração de classe publica TaskController
     } //Fim do método findById
     
     @GetMapping("/user/{userid}")
-        public ResponseEntity<List<Task>> FindAllByUserId(@PathVariable Long userId){
-            List<Task> objs = this.taskService.findAllByUserId(userId);
+        public ResponseEntity<List<Task>> FindAllByUserId(@PathVariable Long userid){
+            List<Task> objs = this.taskService.findAllByUserId(userid);
             return ResponseEntity.ok().body(objs);
 
 
         }
 
-        @GetMapping 
+        @PostMapping 
         public ResponseEntity<Void> create(@Valid @RequestBody Task obj){
             this.taskService.create(obj);
             URI url = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -55,7 +55,7 @@ public class TaskController { //Declaração de classe publica TaskController
             return ResponseEntity.created(url).build();
         }
 
-        @PostMapping ("/{id}")
+        @PutMapping ("/{id}")
         public ResponseEntity<Void> update(@Valid @RequestBody Task obj, @PathVariable Long id){
             obj.setId(id);
             this.taskService.update(obj);
@@ -70,6 +70,7 @@ public class TaskController { //Declaração de classe publica TaskController
         }
 
 
+     
 
 
 }
